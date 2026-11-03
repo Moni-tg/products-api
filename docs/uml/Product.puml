@@ -1,6 +1,6 @@
 @startuml
 
-class Product {
+abstract class Product {
   - id : Long
   - name : String
   - price : double
@@ -12,6 +12,7 @@ class Product {
   + setId(id : Long) : void
   + setName(name : String) : void
   + setPrice(price : double) : void
+  + {abstract} getSummary() : String
 }
 
 class ProductService {
@@ -51,6 +52,11 @@ class PhysicalProduct {
     + getDimensions() : String
 }
 
+interface Discountable {
+    + applyDiscount(rate: double): void
+    + getDiscountedPrice(): double
+}
+
 ' ..> is a dependency: DASHED line, open arrow
 ProductController ..> ProductService
 
@@ -59,5 +65,7 @@ ProductService --> Product
 
 Product <|-- DigitalProduct
 Product <|-- PhysicalProduct
+Discountable <.. DigitalProduct
+Discountable <.. PhysicalProduct
 
 @enduml

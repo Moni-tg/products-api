@@ -2,13 +2,8 @@ package uk.ac.westminster.products_api;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-@JsonTypeInfo(use = JsonTypeInfo.Id.DEDUCTION, defaultImpl = Product.class)
-@JsonSubTypes({
-        @JsonSubTypes.Type(DigitalProduct.class),
-        @JsonSubTypes.Type(PhysicalProduct.class)
-})
 
-public class Product {
+public abstract Product {
 
     private Long id;
     private String name;
@@ -22,6 +17,10 @@ public class Product {
         this.name = name;
         this.price = price;
     }
+
+    //No body
+    //concrete subclass has to answer
+    public abstract String getSummary();
 
     public Long getId() {
         return id;

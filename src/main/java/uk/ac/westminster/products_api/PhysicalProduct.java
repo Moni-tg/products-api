@@ -1,9 +1,10 @@
 package uk.ac.westminster.products_api;
 
-public class PhysicalProduct extends Product{
+public class PhysicalProduct extends Product implements Discountable{
 
     private double weightKg;
     private String dimensions;
+    private double discountPrice;
 
     public PhysicalProduct(){}
 
@@ -15,6 +16,12 @@ public class PhysicalProduct extends Product{
 
     }
 
+    @Override
+    public String getSummary(){
+
+        return "Product" + getName() + "weight" + getWeightKg() + "kg";
+    }
+
     public double getWeightKg() {
         return weightKg;
     }
@@ -23,4 +30,15 @@ public class PhysicalProduct extends Product{
         return dimensions;
     }
 
+    @Override
+    public void applyDiscount(double rate) {
+
+        this.discountPrice = getPrice() + (1- rate);
+
+    }
+
+    @Override
+    public double getDiscountedPrice() {
+        return discountPrice;
+    }
 }
